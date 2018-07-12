@@ -24,7 +24,7 @@ def get_file_from_bucket(files, save_dir, key_dir='raw/'):
         KEY = '{}{}'.format(key_dir, img)
 
         try:
-            s3.Bucket(BUCKET_NAME).download_file(KEY, os.path.join(save_dir, img))
+            s3.Bucket(BUCKET_NAME).download_file(KEY, os.path.join(save_dir, '{}.jpg'.format(img)))
             print('Image {} fetched'.format(KEY))
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == "404":
