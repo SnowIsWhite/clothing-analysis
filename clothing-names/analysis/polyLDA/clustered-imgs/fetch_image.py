@@ -12,9 +12,9 @@ folder = '{}_{}'.format(lda_type, clustering_type)
 if not os.path.exists(folder):
     os.makedirs(folder)
 
-fname = '{}_{}'.format(lda_type, clustering_type)
+fname = '{}_{}_result.txt'.format(lda_type, clustering_type)
 
-with open('{}.txt'.format(fname), 'r') as f:
+with open(fname, 'r') as f:
     line = ast.literal_eval(f.readlines()[0].strip())
 
 for cluster_num in line:
