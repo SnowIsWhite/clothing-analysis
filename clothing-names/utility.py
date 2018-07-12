@@ -157,7 +157,7 @@ def tokenize(type):
         for w in word2cat:
             if word2cat[w] == word2cat[target_category]:
                 cats.append(w)
-        print(cats)
+        
         for c in data:
             for cat in cats:
                 if cat == c:
@@ -168,7 +168,6 @@ def tokenize(type):
                         words += filtered
                         list_of_words.append(words)
     return list_of_words
-
 # if __name__ == "__main__":
 #     res = get_text_data('tc')
 #     for cat in res:
