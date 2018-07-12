@@ -2,8 +2,10 @@ import os
 import boto3
 import botocore
 
-stored_data_dir = ''
+stored_data_dir = '/home/ubuntu/projects/crawling/store/img_progress.txt'
 def get_file_from_bucket(files, save_dir, key_dir='raw/'):
+    print(files)
+    print(save_dir)
     BUCKET_NAME = 'avagaistyle'
     s3 = boto3.resource('s3')
     imgids = []
