@@ -16,7 +16,7 @@ def get_document():
     document = [img2attr[key]['local'] for key in img2attr]
     return document
 
-def p_topic_given_document(topic, d, alpha=0.1):
+def p_topic_given_document(topic, d, alpha=10):
     return ((document_topic_counts[d][topic] + alpha) /
             (document_lengths[d] + K * alpha))
 
@@ -61,7 +61,7 @@ for d in range(D):
         topic_counts[topic] += 1
 
 def train_mono():
-    for iter in range(1000):
+    for iter in range(10000):
         for d in range(D):
             # for body parts
             for i, (word, topic) in enumerate(zip(documents[d],

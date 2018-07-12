@@ -16,9 +16,11 @@ def get_file_from_bucket(files, save_dir, key_dir='raw/'):
             color = file.split('_')[-1]
             id = '_'.join(file.split('_')[2:-1])
             fetch_id = '{}-{}-{}-'.format(mall, id, color)
+            temp = []
             for s in stored:
                 if fetch_id in s:
-                    imgids.append(s)
+                    temp.append(s)
+            imgids.append(temp[-1])
 
     for img in imgids:
         KEY = '{}{}'.format(key_dir, img)
