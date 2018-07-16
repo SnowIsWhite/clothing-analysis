@@ -1,3 +1,4 @@
+# img2attr 데이터 생성
 import ast
 import sys
 import string
@@ -27,6 +28,7 @@ def get_attr_vocab():
     return attr
 
 def img_id_and_prods():
+    # get all relevant products in an image
     img_and_prod = []
     for file in files:
         mall = file.split('_')[0]

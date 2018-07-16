@@ -79,36 +79,6 @@ def get_category_words():
             cnt += 1
     return cat2word, word2cat
 
-def train_tokenizer():
-    text_data = get_text_data('tcd')
-    sentences = []
-    # for category in text_data:
-    #     sentences.append(category)
-
-    for category in text_data:
-        for obj in text_data[category]:
-            # sentences.append(obj['name'])
-            if len(obj['desc']) != 0:
-                sents = obj['desc'].split('.')
-                for s in sents:
-                    sentences.append(s)
-
-    print('Starting Training Tokenizer...')
-    word_extractor = WordExtractor(min_count=100,\
-                                    min_cohesion_forward=0.05,\
-                                    min_right_branching_entropy=0.0)
-    word_extractor.train(sentences) # list of str or like
-    words = word_extractor.extract()
-    for w in words:
-        print(w)
-
-    # kkma = Kkma()
-    # for s in sentences:
-    #     res = kkma.nouns(s)
-    #     print(res)
-    # tokenizer = ''
-    return tokenizer
-
 def filter_string(string, eng2kor):
     stopwords, colorwords, word2sim, sim2word = get_predefined_words()
     filtered = []
@@ -157,14 +127,14 @@ def tokenize(type):
         for w in word2cat:
             if word2cat[w] == word2cat[target_category]:
                 cats.append(w)
-        
+
         for c in data:
             for cat in cats:
                 if cat == c:
                     print(c)
                     for name in data[c]:
                         words = []
-                        filtered, eng2kor =  filter_string(name, eng2kor)
+                        filtered, eng2kor = filter_string(name, eng2kor)
                         words += filtered
                         list_of_words.append(words)
     return list_of_words

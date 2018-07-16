@@ -9,17 +9,17 @@ from nltk.corpus import stopwords
 
 
 files = ['ssense_result.txt']
-data_dir = '../data/'
+data_dir = '../../data/'
 sentences = []
 for file in files:
     with open(data_dir + file, 'r') as f:
         for line in f.readlines():
             l = ast.literal_eval(line)
-            sentence = [word for word in nltk.word_tokenize(l['name'].lower()) if word not in string.punctuation]
+            sentence = [word for word in nltk.word_tokenize(l['name'].lower()) if word not in string.punctuation or word not in stopwords]
             sentences.append(sentence)
             tmps = [sent for sent in l['prod_desc'].split('.') if len(sent) != 0]
             for sent in tmps:
-                sentence = [word for word in nltk.word_tokenize(sent.lower()) if word not in string.punctuation]
+                sentence = [word for word in nltk.word_tokenize(sent.lower()) if word not in string.punctuation or word not in stopwords]
                 sentences.append(sentence)
 phrases = Phrases(sentences)
 bigram = Phraser(phrases)
