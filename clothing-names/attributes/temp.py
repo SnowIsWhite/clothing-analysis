@@ -11,7 +11,7 @@ from dictionary.en_ko_dictionary import update_dictionary, read_dictionary
 files = ['handsome_result.txt']
 data_dir = '../data/'
 attr_files = ['article.txt', 'collar.txt', 'colors.txt', 'material.txt', 'pattern.txt', 'shape.txt']
-stopwords, colorwords, word2sim, sim2word = get_predefined_words()
+stopwords, word2sim, sim2word = get_predefined_words()
 cat2word, word2cat = get_category_words()
 
 prod2words = {}

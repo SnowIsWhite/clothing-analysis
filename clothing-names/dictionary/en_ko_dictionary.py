@@ -1,9 +1,13 @@
 import ast
 from google.cloud import translate
 
-client = translate.Client()
+# client = translate.Client()
 dictionary_dir = '/Users/jaeickbae/Documents/projects/data_analysis/brands\
 /clothing-names/dictionary/dictionary.txt'
+found_eng_words = '/Users/jaeickbae/Documents/projects/data_analysis/brands\
+/clothing-names/dictionary/manually_found_english_words.txt'
+custom_dictionary_dir = '/Users/jaeickbae/Documents/projects/data_analysis/brands\
+/clothing-names/dictionary/custom_dictionary.txt'
 
 # read existing dictionary
 def read_dictionary():
@@ -50,3 +54,21 @@ def write_dictionary_to_file(eng2kor, kor2eng):
                 f.write(',')
             f.write('"' + key + '":"' + kor2eng[key] + '"' )
         f.write('}')
+
+def read_custom_dictionary():
+    with open(custom_dictionary_dir, 'r') as f:
+        eng2kor = ast.literal_eval(f.readlines()[0])
+    return eng2kor
+
+def write_custom_dictionary():
+    eng2kor = {}
+    with open(found_eng_words, 'r') as f:
+        for line in f.readlines():
+            words = line.split(',')
+            words = [word.strip() for word in words]
+            eng2kor[words[0]] = words[1]
+    with open(custom_dictionary_dir, 'w') as f:
+        f.write(str(eng2kor))
+
+if __name__ == "__main__":
+    write_custom_dictionary()

@@ -10,6 +10,11 @@ dropped shoulders,드롭숄더
 goose down,구스다운
 crew neck,크루넥
 scoop neck,스쿱넥
+henley neck,헨리넥
+notch neck,노치넥
+boat neck,보트넥
+round neck,라운드넥
+henley,헨리
 tonal,색조
 black,블랙
 stitching,스티칭

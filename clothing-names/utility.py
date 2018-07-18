@@ -45,11 +45,6 @@ def get_predefined_words():
         for line in f.readlines():
             stopwords.append(line.strip())
 
-    colorwords = []
-    with open(words_path+'clothing-colors.txt', 'r') as f:
-        for line in f.readlines():
-            colorwords.append(line.strip())
-
     word2sim = {}
     sim2word = {}
     with open(words_path+'similar-words.txt', 'r') as f:
@@ -62,7 +57,7 @@ def get_predefined_words():
                 word = word.strip()
                 word2sim[word] = cnt
             cnt += 1
-    return stopwords, colorwords, word2sim, sim2word
+    return stopwords, word2sim, sim2word
 
 def get_category_words():
     word2cat = {}
