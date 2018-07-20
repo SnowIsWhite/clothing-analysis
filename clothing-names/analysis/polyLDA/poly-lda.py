@@ -72,7 +72,7 @@ def sample_from(weights):
 
 documents = get_document()
 random.seed(0)
-K = 5
+K = 16
 n_regions = 4
 document_topics = [[[random.randrange(K) for word in region] for region in document]
                     for document in documents]

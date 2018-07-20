@@ -553,3 +553,10 @@ district,디스트릭트
 hound tooth,하운드투스
 regimental,레지멘탈
 plaid,플레이드
+glove,장갑
+gloves,장갑
+scarf,스카프
+necklace,목걸이
+bag,가방
+beanie,비니
+sunglasses,선글라스

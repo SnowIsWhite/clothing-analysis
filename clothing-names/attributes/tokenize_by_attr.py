@@ -8,14 +8,10 @@ from nltk.corpus import stopwords
 from konlpy.tag import Kkma
 sys.path.append('../')
 from utility import get_predefined_words
-sys.path.append('../dictionary/')
-from dictionary.en_ko_dictionary import read_dictionary, read_custom_dictionary
 
 kkma = Kkma()
 
-def english_to_korean(sentence):
-    custom_dictionary = read_custom_dictionary()
-    google_cloud_dictionary, _ = read_dictionary()
+def english_to_korean(sentence, custom_dictionary, google_cloud_dictionary):
     # tokenize
     words = [word for word in nltk.word_tokenize(sentence.lower()) if word not in string.punctuation or word not in stopwords.words("english")]
 
@@ -82,7 +78,7 @@ def get_attr_vocab():
             colors[words[0]] = words
     return attr, colors
 
-def tokenize_by_attr(dirty, word2sim, sim2word, lang='ko'):
+def tokenize_by_attr(dirty, word2sim, sim2word, custom_dictionary, google_cloud_dictionary, lang='ko'):
     # clean dirty characters
     cleaned = []
     for c in dirty:
@@ -103,7 +99,7 @@ def tokenize_by_attr(dirty, word2sim, sim2word, lang='ko'):
         else:
             korean.append(word)
     # _, word2sim, sim2word = get_predefined_words()
-    english = english_to_korean(' '.join(english))
+    english = english_to_korean(' '.join(english), custom_dictionary, google_cloud_dictionary)
     english = filter_korean(' '.join(english), word2sim, sim2word)
     korean = filter_korean(' '.join(korean), word2sim, sim2word)
 

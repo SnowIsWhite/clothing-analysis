@@ -4,8 +4,10 @@ from tokenize_by_attr import tokenize_by_attr, get_attr_vocab
 from collections import Counter
 sys.path.append('../')
 from utility import get_predefined_words
+sys.path.append('../dictionary/')
+from dictionary.en_ko_dictionary import read_dictionary, read_custom_dictionary
 
-target_files = ['handsome_result.txt']
+target_files = ['ssense_results_combined.txt']
 data_dir = '../data/'
 
 def __find_rel_prod_desc__(file, prod_num):
@@ -22,8 +24,6 @@ def __imgid2desc__():
         mall = file.split('_')[0]
         with open(data_dir + file, 'r') as f:
             for idx, line in enumerate(f.readlines()):
-                if idx < 100:
-                    continue
                 line = ast.literal_eval(line.strip())
                 tmp_img_id = '{}_{}_{}'.format(mall, str(idx), line['prod_num'])
                 prods = []
@@ -64,6 +64,8 @@ def __imgid2desc__():
                                     if len(rel_category) != 0:
                                         sentences.append(rel_category)
                         if 'rel_name' in sub_dic:
+                            if sub_dic['rel_name'] == None:
+                                continue
                             if len(sub_dic['rel_name']) != 0:
                                 sentences.append(sub_dic['rel_name'])
                         prods.append(sentences)
@@ -76,9 +78,16 @@ def __imgid2desc__():
 def img2attr():
     _, word2sim, sim2word = get_predefined_words()
     attr, colors = get_attr_vocab()
+    custom_dictionary = read_custom_dictionary()
+    google_cloud_dictionary = read_dictionary()
     img2attr = {}
     imgid2desc = __imgid2desc__()
+    total_len = len(imgid2desc)
+    cnt = 0
     for descdic in imgid2desc:
+        cnt += 1
+        if cnt % 1000 == 0:
+            print('{}/{}, {} percent done'.format(str(cnt), str(total_len), str(cnt/(total_len)*1.*100)))
         globe, local = [], []
         for sentences in descdic['prods']:
             attr2word = {'article': [], 'collar': [], 'material': [], 'pattern': [],\
@@ -86,7 +95,7 @@ def img2attr():
             for sentence in sentences:
                 sents = sentence.split('.')
                 for s in sents:
-                    tokenized = tokenize_by_attr(s, word2sim, sim2word)
+                    tokenized = tokenize_by_attr(s, word2sim, sim2word, custom_dictionary, google_cloud_dictionary)
                     for word in tokenized:
                         if word in attr['article']:
                             attr2word['article'].append(word)
@@ -106,8 +115,7 @@ def img2attr():
                 globe += list(set(attr2word[key]))
             # count the most frequent article
             if len(attr2word['article']) == 0:
-                print(descdic)
-                print(attr2word)
+                continue
             article_counter = Counter(attr2word['article']).most_common()
             article = article_counter[0][0]
             # make local attribute

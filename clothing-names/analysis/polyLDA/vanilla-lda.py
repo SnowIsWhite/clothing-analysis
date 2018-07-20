@@ -40,7 +40,7 @@ def sample_from(weights):
 
 documents = get_document()
 random.seed(0)
-K=5
+K=16
 # assign random topics to each word in each doucument
 # has to change: random topic for word in body region for body region in doc
 document_topics = [[random.randrange(K) for word in document]
