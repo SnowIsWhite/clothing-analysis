@@ -97,7 +97,12 @@ for d in range(D):
             topic_counts[topic] += 1
 
 def train_poly():
-    for iter in range(10000):
+    cnt = 0
+    trial = 1000
+    for iter in range(trial):
+        cnt += 1
+        if cnt % 100 == 0:
+            print('{}/{}, {} percent done'.format(str(cnt), str(trial), str(cnt/(trial*1.)*100)))
         for d in range(D):
             for bp in range(n_regions):
                 for i, (word, topic) in enumerate(zip(documents[d][bp], document_topics[d][bp])):

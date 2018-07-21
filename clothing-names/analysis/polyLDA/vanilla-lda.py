@@ -16,7 +16,7 @@ def get_document():
     document = [img2attr[key]['local'] for key in img2attr]
     return document
 
-def p_topic_given_document(topic, d, alpha=10):
+def p_topic_given_document(topic, d, alpha=3):
     return ((document_topic_counts[d][topic] + alpha) /
             (document_lengths[d] + K * alpha))
 
@@ -61,7 +61,11 @@ for d in range(D):
         topic_counts[topic] += 1
 
 def train_mono():
-    for iter in range(10000):
+    cnt = 0
+    for iter in range(1000):
+        cnt += 1
+        if cnt % 100 == 0:
+            print("{}/{}, {} percent done".format(str(cnt), str(1000), str(cnt/(1000*1.)*100)))
         for d in range(D):
             # for body parts
             for i, (word, topic) in enumerate(zip(documents[d],

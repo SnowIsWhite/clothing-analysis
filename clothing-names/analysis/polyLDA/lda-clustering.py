@@ -7,8 +7,7 @@ from sklearn.cluster import SpectralClustering
 from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 
-n_cluster = 5
-lda_type = 'mono'
+n_cluster = 16
 document_dir = '../../attributes/img2attr.txt'
 clustered_img_dir = './clustered-imgs/'
 
@@ -76,7 +75,7 @@ def group_by_images(lda_type, clustering_type, predicted):
 
 
 if __name__ == "__main__":
-    lda_type = 'mono'
+    lda_type = 'poly'
     clustering_type = 'spectral'
     predicted = clustering(lda_type, clustering_type)
     group_by_images(lda_type, clustering_type, predicted)
