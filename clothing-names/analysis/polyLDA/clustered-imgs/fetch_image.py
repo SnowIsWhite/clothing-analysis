@@ -11,6 +11,16 @@ lda_type = 'mono'
 signature = 'handsome'
 numSelectElements = 10
 
+def __randomSelect__(files):
+    chosenFiles = []
+    for i in range(numSelectElements):
+        if len(files) == 0:
+            break
+        choice = random.choice(files)
+        files.remove(choice)
+        chosenFiles.append(choice)
+    return choseFiles
+    
 folder = '{}_{}_{}'.format(signature, lda_type, clustering_type)
 if not os.path.exists(folder):
     os.makedirs(folder)
@@ -28,13 +38,3 @@ for cluster_num in line:
     chosenFiles = __randomSelect__(files)
     save_dir = os.path.join(os.getcwd(), folder_name) + '/'
     get_file_from_bucket(chosenFiles, save_dir, key_dir='raw/')
-
-def __randomSelect__(files):
-    chosenFiles = []
-    for i in range(numSelectElements):
-        if len(files) == 0:
-            break
-        choice = random.choice(files)
-        files.remove(choice)
-        chosenFiles.append(choice)
-    return choseFiles
