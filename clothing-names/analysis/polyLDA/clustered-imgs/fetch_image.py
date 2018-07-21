@@ -19,8 +19,8 @@ def __randomSelect__(files):
         choice = random.choice(files)
         files.remove(choice)
         chosenFiles.append(choice)
-    return choseFiles
-    
+    return chosenFiles
+
 folder = '{}_{}_{}'.format(signature, lda_type, clustering_type)
 if not os.path.exists(folder):
     os.makedirs(folder)
